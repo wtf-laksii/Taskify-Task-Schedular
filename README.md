@@ -1,4 +1,4 @@
-#Taskify
+#Taskify#
 Taskify is a user-friendly task management application designed to help users organize and manage their daily tasks efficiently. The application provides a simple and intuitive interface where users can input task names, along with specific dates and times.
 
 #Features
