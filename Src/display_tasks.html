@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../Images/logo.png">
+    <link rel="stylesheet" href="../Styles/style3.css">
+    <title>Task List</title>
+
+</head>
+
+<body>
+
+    <h2>Task List</h2>
+
+    <table id="taskTable">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="taskList"></tbody>
+    </table>
+
+    <div class="button-container">
+        <button class="button-55" onclick="resetData()">Reset</button>
+        <button class="button-55" onclick="continueAdding()">Continue Adding</button>
+    </div>
+
+    <div class="timer-container">
+        <h3 id="timer"></h3>
+    </div>
+
+    <script>
+        function displayTasks() {
+            let taskListTable = document.getElementById('taskList');
+            taskListTable.innerHTML = '';
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach((task, index) => {
+                let row = taskListTable.insertRow();
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                cell1.innerHTML = task.name;
+                cell2.innerHTML = task.date;
+                cell3.innerHTML = task.time;
+                let deleteButton = document.createElement('button');
+                deleteButton.innerHTML = 'Delete';
+                deleteButton.onclick = function () {
+                    deleteTask(index);
+                };
+                cell4.appendChild(deleteButton);
+            });
+        }
+
+        function deleteTask(index) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            displayTasks();
+        }
+
+        function resetData() {
+            localStorage.removeItem('tasks');
+            location.reload();
+        }
+
+        function continueAdding() {
+            window.location.href = './main.html';
+        }
+
+        function updateTimer() {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            let now = new Date();
+            let nextTaskTime;
+
+            for (let task of tasks) {
+                let taskDateTime = new Date(task.date + ' ' + task.time);
+                if (taskDateTime > now) {
+                    nextTaskTime = taskDateTime;
+                    break;
+                }
+            }
+
+            if (nextTaskTime) {
+                let timeDifference = nextTaskTime - now;
+                let seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                document.getElementById('timer').innerHTML =
+                    `Time until your next task: ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById('timer').innerHTML = "No upcoming tasks";
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+
+        displayTasks();
+        updateTimer();
+    </script>
+</body>
+
+</html>

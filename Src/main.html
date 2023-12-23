@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../Styles/style1.css">
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../Images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler</title>
+</head>
+
+<body>
+    <div class="logo">
+        <img src="../Images/logo.png" alt="Logo">
+    </div>
+    <br><br>
+    <br>
+
+    <p1>This Tool Helps you Schedule your task and you can view them all together in a table format. <br> You can add
+        Name, Date and Time. Once you have added all the tasks you want to add you can then press Display tasks to
+        view all your Task</p1>
+
+    <form id="taskForm">
+        <div class="wrapper">
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName" name="taskName" required>
+        </div>
+        <div class="wrapper">
+            <label for="taskDate">Date:</label>
+            <input type="date" id="taskDate" name="taskDate" required>
+        </div>
+        <div class="wrapper">
+            <label for="taskTime">Time:</label>
+            <input type="time" id="taskTime" name="taskTime" required>
+        </div>
+
+        <button class="button-55" type="button" onclick="addTask()">Add Task</button>
+    </form>
+    <button class="button-89" role="button" onclick="redirectToDisplayPage()">Display Task</button>
+
+    <script>
+        function addTask() {
+            let taskName = document.getElementById('taskName').value;
+            let taskDate = document.getElementById('taskDate').value;
+            let taskTime = document.getElementById('taskTime').value;
+
+
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            tasks.push({
+                name: taskName,
+                date: taskDate,
+                time: taskTime
+            });
+
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDate').value = '';
+            document.getElementById('taskTime').value = '';
+        }
+
+        function redirectToDisplayPage() {
+
+            window.location.href = './display_tasks.html';
+        }
+    </script>
+
+    <footer class="footer-07">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h2 class="footer-heading"><a href="#" class="logo">Taskify.in</a></h2>
+                    <h2 class="footer-heading"><a class="logo">Project By </a></h2>
+                    <p class="menu">
+                        <a>Lakshay Sharma</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p class="copyright">
+                        The Task Scheduler is a user-friendly application designed to help organize and manage tasks
+                        efficiently.
+                        Users can input task names, along with specific dates and times, through a simple and intuitive
+                        interface.
+                        The system allows for seamless task tracking, ensuring timely completion. Additionally, it
+                        features a display page
+                        presenting all tasks in a tabular format, enhancing visibility and planning
+                        With the added convenience of reminders, users stay informed and on top of their schedules.
+                        The Task Scheduler aims to streamline task management, providing a structured and accessible
+                        solution for individuals seeking an effective way to plan and execute their daily activities.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

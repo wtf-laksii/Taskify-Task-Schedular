@@ -1,0 +1,199 @@
+<html>
+
+<head>
+    <title>Login Page</title>
+    <link rel="icon" type="image/png" href="./Images/logo.png">
+
+    <style>
+        body {
+            background-image: url("./Images/background.png");
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .info-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .info-box {
+            margin-left: 80px;
+            margin-top: 210px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+        }
+
+        .info-box h2 {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            margin: 0;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .login-container {
+            margin-top: 210px;
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 400px;
+            height: 500px;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .login-box h2 {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            margin-bottom: 10px;
+        }
+
+        .input-box input {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgb(148, 148, 148);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            width: 100%;
+        }
+
+        .login-button {
+            padding: 10px 20px;
+            width: 200px;
+            border: none;
+            border-radius: 5px;
+            background-color: #000000;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 50px
+        }
+
+        .Reg_but {
+            display: flex;
+            gap: 3px;
+
+        }
+
+        .login-button:hover {
+            background-color: #6e6e6e;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="info-container">
+            <div class="info-box">
+                <h2>Welcome To Taskify</h2>
+                <p>The Task Scheduler is a user-friendly application designed to help organize and manage tasks
+                    efficiently.
+                    Users can input task names, along with specific dates and times, through a simple and intuitive
+                    interface.
+                    The system allows for seamless task tracking, ensuring timely completion. Additionally, it
+                    features a display page
+                    presenting all tasks in a tabular format, enhancing visibility and planning
+                    With the added convenience of reminders, users stay informed and on top of their schedules.
+                    The Task Scheduler aims to streamline task management, providing a structured and accessible
+                    solution for individuals seeking an effective way to plan and execute their daily activities.</p>
+                <p>
+                    Please Login or Register a new Account to use Taskify
+                </p>
+            </div>
+        </div>
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Login</h2>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" id="username">
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" id="password">
+                </div>
+                <div class="Reg_but">
+                    <button class="login-button" onclick="registerUser()">Register</button>
+                    <button class="login-button" onclick="loginUser()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function generateUniqueID() {
+            return 'user_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function registerUser() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Please enter both username and password.');
+                return;
+            }
+
+            if (localStorage.getItem(username)) {
+                alert('Username already exists. Please choose a different username.');
+                return;
+            }
+
+            var userID = generateUniqueID();
+            var userData = {
+                password: password,
+                userID: userID,
+
+            };
+
+            localStorage.setItem(username, JSON.stringify(userData));
+
+            alert('Registration successful!');
+        }
+
+        function loginUser() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Please enter both username and password.');
+                return;
+            }
+
+            var userData = localStorage.getItem(username);
+
+            if (userData) {
+                userData = JSON.parse(userData);
+
+                if (userData.password === password) {
+                    window.location.href = './Src/main.html';
+                } else {
+                    alert('Username or password is incorrect. Please try again.');
+                }
+            } else {
+                alert('Username or password is incorrect. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>
