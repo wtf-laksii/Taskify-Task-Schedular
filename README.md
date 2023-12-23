@@ -23,6 +23,10 @@ To use Taskify, follow these steps:
 7. Add tasks with names, dates, and times.
 8. Display tasks to view them in a table format.
 
+
+![Taskify Logo](https://github.com/wtf-laksii/Taskify-Task-Schedular/blob/main/Images/logo.png)
+
+
 ## Technologies Used
 
 - HTML
