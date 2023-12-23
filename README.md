@@ -15,10 +15,13 @@ Taskify is a user-friendly task management application designed to help organize
 To use Taskify, follow these steps:
 
 1. Clone the repository.
-2. Open `index.html` in your web browser.
-3. Register a new account or log in to an existing one.
-4. Add tasks with names, dates, and times.
-5. Display tasks to view them in a table format.
+2. Open the repository in your pc.
+3. Hold Shift and Right click and then open the path in cmd.
+4. In the command prompt Write this 'npm start'.
+5. Now your application is ready to use
+6. Register a new account or log in to an existing one.
+7. Add tasks with names, dates, and times.
+8. Display tasks to view them in a table format.
 
 ## Technologies Used
 
